@@ -3,6 +3,10 @@
 
 Echo-Live项目地址：https://github.com/sheep-realms/Echo-Live
 
+##这是什么？
+
+Echo-Live-Typetool是一个使用C++编写的控制台程序，你可以在此程序里直接输入你想要在Echo-Live里显示的文本，而不必自己每次手动更改start.js，相对更加方便（大概？
+
 ## 如何使用？
 
 将Typetool.exe复制到start.js的同一目录下，在cmd或者powershell等终端中使用命令行来启动此控制台程序
@@ -28,6 +32,10 @@ Echo-Live项目地址：https://github.com/sheep-realms/Echo-Live
 实际输出为：
 
 ```世界！```
+
+3.在输入完成后，你仍然需要在obs里手动刷新Echo-Live
+
+4.Echo-Live-Typetool现在暂不支持富文本输入
 
 ## 有其他问题或者建议？
 
