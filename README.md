@@ -3,13 +3,13 @@
 
 Echo-Live项目地址：https://github.com/sheep-realms/Echo-Live
 
-# 如何使用？
+## 如何使用？
 
 将Typetool.exe复制到start.js的同一目录下，在cmd或者powershell等终端中使用命令行来启动此控制台程序
 
 ```./Typetool.exe```
 
-# 注意事项
+## 注意事项
 
 1.请确保你的终端编码为UTF-8，否则在输入中文时可能会出现乱码或者导致未知错误
 
