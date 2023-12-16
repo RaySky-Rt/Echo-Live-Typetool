@@ -29,6 +29,6 @@ Echo-Live项目地址：https://github.com/sheep-realms/Echo-Live
 
 ```世界！```
 
-# 有其他问题或者建议？
+## 有其他问题或者建议？
 
 请直接在项目中提issue，作为一位在校大学新牲我会及时查看并协助你解决问题，或者采纳建议（
