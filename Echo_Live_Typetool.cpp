@@ -15,7 +15,7 @@ int main() {
         string a;
 
         cout << "请输入文本...？ (输入\"exit\"来退出程序): ";
-        cin >> a;
+        getline(cin, a);
 
         if (a == "exit") {
             break;
