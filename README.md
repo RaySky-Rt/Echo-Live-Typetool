@@ -1,5 +1,6 @@
 # Echo-Live-Typetool
 使用C++编写的一个输入工具，适用于Echo-Live
+
 Echo-Live项目地址：https://github.com/sheep-realms/Echo-Live
 
 # 如何使用？
