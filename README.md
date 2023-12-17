@@ -9,7 +9,7 @@ Echo-Live-Typetool是一个使用C++编写的控制台程序，你可以在此�
 
 ## 如何使用？
 
-将Typetool.exe复制到start.js的同一目录下，在cmd或者powershell等终端中使用命令行来启动此控制台程序
+将Echo-Live-Typetool复制到start.js的同一目录下，在cmd或者powershell等终端中使用命令行来启动此控制台程序
 
 ```./Echo-Live-Typetool.exe```
 
