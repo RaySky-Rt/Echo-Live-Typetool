@@ -36,3 +36,6 @@
 
 #ignore my tests
 tests/
+
+#ignore start.js
+start.js
