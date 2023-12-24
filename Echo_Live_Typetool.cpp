@@ -10,6 +10,8 @@ void read_config(); //读取配置文件
 void show_commandlist(); //输出指令列表
 string getcommand(string a); //接收指令
 
+//上述写好的几个函数暂未正式投入使用（
+
 int main() {
     string commandlist[101],userInput;
     ofstream file("start.js", ios::out);
