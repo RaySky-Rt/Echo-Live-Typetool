@@ -2,7 +2,7 @@
 
 ~~使用C++编写的一个输入工具，适用于[Echo-Live](https://github.com/sheep-realms/Echo-Live)~~
 
-Echo-Live 1.2.1更新后可以直接使用Echo-Live自带的编辑器发送并刷新消息，本工具将停止更新，并且不再适用于最新版本的Echo-Live（
+>Echo-Live 1.2.1更新后可以直接使用Echo-Live自带的编辑器发送并刷新消息，本工具将停止更新，并且不再适用于最新版本的Echo-Live（
 
 ## 这是什么？
 
