@@ -1,8 +1,12 @@
 # Echo-Live-Typetool
 
-~~使用C++编写的一个输入工具，适用于[Echo-Live](https://github.com/sheep-realms/Echo-Live)~~
+使用C++编写的一个输入工具，适用于[Echo-Live](https://github.com/sheep-realms/Echo-Live)
 
->Echo-Live 1.2.1更新后可以直接使用Echo-Live自带的编辑器发送并刷新消息，本工具将停止更新，并且不再适用于最新版本的Echo-Live（
+>~~Echo-Live 1.2.1 更新后可以直接使用Echo-Live自带的编辑器发送并刷新消息，本工具将停止更新，并且不再适用于最新版本的Echo-Live（~~ 
+
+>或许还可以在直播姬上用...总之还是继续更新吧（
+
+
 
 ## 这是什么？
 
