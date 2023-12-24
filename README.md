@@ -1,9 +1,13 @@
 # Echo-Live-Typetool
-使用C++编写的一个输入工具，适用于[Echo-Live](https://github.com/sheep-realms/Echo-Live)
+
+~~使用C++编写的一个输入工具，适用于[Echo-Live](https://github.com/sheep-realms/Echo-Live)~~
+
+Echo-Live 1.2.1更新后可以直接使用Echo-Live自带的编辑器发送并刷新消息，本工具将停止更新，并且不再适用于最新版本的Echo-Live（
 
 ## 这是什么？
 
 Echo-Live-Typetool是一个使用C++编写的控制台程序，你可以在此程序里直接输入你想要在Echo-Live里显示的文本，而不必自己每次手动更改start.js，相对更加方便（大概？
+
 
 ## 如何使用？
 
