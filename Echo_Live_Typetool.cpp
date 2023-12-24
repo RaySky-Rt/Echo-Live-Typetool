@@ -36,7 +36,7 @@ int main() {
 
         }else{
         file.open("start.js", ios::out | ios::trunc);
-        file << "const data = {\n"
+        file << "echolive.send({\n"
              "    \"username\": \".\", \n"
              "    \"messages\": [\n"
              "        {\n"
@@ -46,7 +46,7 @@ int main() {
              "            }\n"
              "        }\n"
              "    ]\n"
-             "}\n";
+             "});\n";
         file.close();
         cout << "文本更新完成！\n";
         }
