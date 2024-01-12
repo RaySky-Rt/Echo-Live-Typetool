@@ -39,3 +39,8 @@ tests/
 
 #ignore start.js
 start.js
+
+#ignore include
+include/
+nlohmann/
+vcpkg.json
