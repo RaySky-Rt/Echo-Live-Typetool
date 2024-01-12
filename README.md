@@ -15,9 +15,23 @@ Echo-Live-Typetool是一个使用C++编写的控制台程序，你可以在此�
 
 ## 如何使用？
 
-将Echo-Live-Typetool.exe复制到start.js的同一目录下，在cmd或者powershell等终端中使用命令行来启动此控制台程序
+- ### 首先确保你的Echo-Live设置正确：
 
-```./Echo-Live-Typetool.exe```
+    在Echo-Live的config.js中
+
+    将 **启用广播** 这项设置为 **关闭**
+
+    `broadcast_enable: false`
+
+    然后把 **消息轮询** 这项设置为 **开启**
+
+    `messages_polling_enable: true`
+
+- ### 运行程序
+
+    将Echo-Live-Typetool.exe复制到start.js的同一目录下，在cmd或者powershell等终端中使用命令行来启动此控制台程序
+
+    `./Echo-Live-Typetool.exe`
 
 ## 注意事项
 
@@ -27,13 +41,21 @@ Echo-Live-Typetool是一个使用C++编写的控制台程序，你可以在此�
 
 ### **2.**
 
-在输入完成后，你仍然需要在obs里手动刷新Echo-Live
 
-> 建议：你可以在obs里为刷新Echo-Live页面缓存单独设置一个快捷键，例如作者设置的快捷键就是 ~ 
+
 
 ### **3.**
+关于指令系统
 
-Echo-Live-Typetool现在暂不支持富文本输入
+输入时以斜杠`/`开头，程序就会将其识别成一段指令
+
+~~有点类似mc的指令~~
+
+详细信息请参见[指令列表](https://github.com/RaySky-Rt/Echo-Live-Typetool/blob/master/COMMANDS.md)
+
+### **4.**
+
+Echo-Live-Typetool现在只支持纯文本，暂不支持富文本输入
 
 ## 有其他问题或者建议？
 
