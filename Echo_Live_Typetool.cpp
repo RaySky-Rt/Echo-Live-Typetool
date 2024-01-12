@@ -11,7 +11,7 @@ void show_commandlist(); //输出指令列表
 string getcommand(string a); //解析指令
 
 //上述写好的几个函数暂未正式投入使用（
-string username;
+string username,prefix,suffix;
 int main() {
     string commandlist[101],userInput;
     ofstream file("start.js", ios::out);
@@ -45,7 +45,7 @@ int main() {
              "    \"username\": \"" << username << "\", \n"
              "    \"messages\": [\n"
              "        {\n"
-             "            \"message\": \"" << userInput << "\",\n"
+             "            \"message\": \"" << prefix << userInput << suffix << "\",\n"
              "            \"data\": {\n"
              "                \"printSpeed\": \"30\"\n"
              "            }\n"
@@ -68,16 +68,56 @@ void refreshConsole(){
 void command_execute(string userInput){
     string command;
     command=getcommand(userInput);
+    
     if(command=="name"){
         string input;
-        input=userInput.substr(6);
-        username=input;
-        cout<<"已将说话人名称改为"<<username<<endl;
+        if(userInput.size()<=6){
+            input.clear();
+            username=input;
+            cout<<"已设置为无说话人"<<endl;
+        }else{
+            input=userInput.substr(6);
+            username=input;
+            cout<<"已将说话人名称改为"<<username<<endl;
+        }
         return;
     }else if(command=="clear"){
         refreshConsole();
         return;
+    }else if(command=="prefix"){
+        string input;
+        if(userInput.size()<=8){
+            input.clear();
+            prefix=input;
+            cout<<"已清除前引用符号"<<endl;
+        }else{
+            input=userInput.substr(8);
+            if(input=="\""){
+                prefix="\\\"";
+                cout<<"已将前引用符号改为"<<"\""<<endl;
+            }else{
+                prefix=input;
+                cout<<"已将前引用符号改为"<<prefix<<endl;
+            }
+        }
+    }else if(command=="suffix"){
+        string input;
+        if(userInput.size()<=8){
+            input.clear();
+            suffix=input;
+            cout<<"已清除后引用符号"<<endl;
+        }else{
+            input=userInput.substr(8);
+            if(input=="\""){
+                suffix="\\\"";
+                cout<<"已将后引用符号改为"<<"\""<<endl;
+            }else{
+                suffix=input;
+                cout<<"已将后引用符号改为"<<suffix<<endl;
+            }
+        }
     }
+
     return;
 }
 
