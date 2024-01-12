@@ -40,11 +40,6 @@ Echo-Live-Typetool是一个使用C++编写的控制台程序，你可以在此�
 请确保你的终端编码为UTF-8，否则在输入中文时可能会出现乱码或者导致未知错误
 
 ### **2.**
-
-
-
-
-### **3.**
 关于指令系统
 
 输入时以斜杠`/`开头，程序就会将其识别成一段指令
@@ -53,7 +48,7 @@ Echo-Live-Typetool是一个使用C++编写的控制台程序，你可以在此�
 
 详细信息请参见[指令列表](https://github.com/RaySky-Rt/Echo-Live-Typetool/blob/master/COMMANDS.md)
 
-### **4.**
+### **3.**
 
 Echo-Live-Typetool现在只支持纯文本，暂不支持富文本输入
 
