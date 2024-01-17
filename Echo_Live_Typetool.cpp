@@ -13,9 +13,10 @@ void write_config(); //写入配置文件
 void show_commandlist(); //输出指令列表
 string getcommand(string a); //解析指令
 
+//一些全局变量↓
 string username,prefix,suffix,printSpeed="30";
 json config;
-//一些全局变量
+
 
 int main() {
     string commandlist[101],userInput;
