@@ -44,3 +44,4 @@ start.js
 include/
 nlohmann/
 vcpkg.json
+typetool_config_origin.json
