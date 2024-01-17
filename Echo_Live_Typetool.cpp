@@ -6,41 +6,37 @@
 using json = nlohmann::ordered_json;
 using namespace std;
 
-void refreshConsole(); //清屏
-void command_execute(string command); //执行指令
-void read_config(); //读取配置文件
-void write_config(); //写入配置文件
-void show_commandlist(); //输出指令列表
-string getcommand(string a); //解析指令
+void refreshConsole(); // 清屏
+void command_execute(string command); // 执行指令
+void read_config(); // 读取配置文件
+void write_config(); // 写入配置文件
+void show_commandlist(); // 输出指令列表
+string getcommand(string a); // 解析指令
 
 //一些全局变量↓
-string username,prefix,suffix,printSpeed="30";
+string username="",prefix="",suffix="",printSpeed="30";
 json config;
 
 
 int main() {
-    string commandlist[101],userInput;
+    string userInput;
 
     read_config();
 
-    ofstream file("start.js", ios::out);
+    ofstream file("../../start.js", ios::out);
     if (!file.is_open()) {
         cerr << "无法打开start.js，请检查start.js是否被其他程序占用\n";
         return 1;
     }
-    // if(username==""){
-    //     cout<<"欢迎使用！请输入想要显示的用户名~"<<endl;
-    //     getline(cin, username);
-    // }
 
     while (true) {
-        userInput=""; //清空userInput
+        userInput=""; // 清空userInput
 
         cout << "请输入文本...？: ";
 
         getline(cin, userInput);
 
-        if(userInput[0]=='/'){//指令
+        if(userInput[0]=='/'){// 指令
             if(userInput=="/exit"){
                 break;
             }else{
@@ -48,7 +44,7 @@ int main() {
             }
 
         }else{
-        file.open("start.js", ios::out | ios::trunc);
+        file.open("../../start.js", ios::out | ios::trunc);
         file << "echolive.send({\n"
              "    \"username\": \"" << username << "\", \n"
              "    \"messages\": [\n"
@@ -207,7 +203,7 @@ void write_config(){
 }
 
 void show_commandlist(){
-    //还没写，这个函数真的用得上吗（
+    // 还没写，这个函数真的用得上吗（
 }
 
 string getcommand(string userInput){
