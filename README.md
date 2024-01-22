@@ -31,6 +31,12 @@ Echo-Live-Typetool是一个使用C++编写的控制台程序，你可以在此�
 
     将 `Echo-Live-Typetool.zip` 解压到 `echo-live-x.x.x/extentions/` 目录下，安装就此完成 ~~（很简单对吧，反正这也不是什么正经插件，所以不用正经导入（划掉）~~
 
+- ### 之后...进行一些配置！
+
+    你可以编辑typetool_config.json中的配置来调整你想要的输出效果，建议使用VSCode等专业文本编辑器
+
+    关于配置文件的详细说明请移步 [配置说明](https://github.com/RaySky-Rt/Echo-Live-Typetool/blob/master/CONFIG_DOCS.md)
+
 - ### 最后就是...运行程序！
     #### 方法一：使用launch.bat启动（推荐）
 
