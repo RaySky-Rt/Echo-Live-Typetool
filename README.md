@@ -17,7 +17,7 @@ Echo-Live-Typetool是一个使用C++编写的控制台程序，你可以在此�
 
 - ### 首先...确保你的Echo-Live设置正确！
 
-    在Echo-Live的config.js中
+    在Echo-Live的配置文件 `config.js` 中
 
     将 **启用广播** 这项设置为 **关闭**
 
@@ -33,7 +33,7 @@ Echo-Live-Typetool是一个使用C++编写的控制台程序，你可以在此�
 
 - ### 之后...进行一些配置！
 
-    你可以编辑typetool_config.json中的配置来调整你想要的输出效果，建议使用VSCode等专业文本编辑器
+    你可以编辑 `typetool_config.json` 中的配置来调整你想要的输出效果，建议使用VSCode等专业文本编辑器
 
     关于配置文件的详细说明请移步 [配置说明](https://github.com/RaySky-Rt/Echo-Live-Typetool/blob/master/CONFIG_DOCS.md)
 
@@ -67,11 +67,11 @@ Echo-Live-Typetool是一个使用C++编写的控制台程序，你可以在此�
 ### **2.** 关于指令系统
 
 
-输入时以斜杠`/`开头，程序就会将其识别成一段指令
+输入时以斜杠 `/` 开头，程序就会将其识别成一段指令
 
 ~~有点类似mc的指令~~
 
-详细信息请参见[指令列表](https://github.com/RaySky-Rt/Echo-Live-Typetool/blob/master/COMMANDS.md)
+详细信息请参见 [指令列表](https://github.com/RaySky-Rt/Echo-Live-Typetool/blob/master/COMMANDS.md)
 
 ### **3.** 富文本输入
 
