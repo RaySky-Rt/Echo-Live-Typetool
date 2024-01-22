@@ -36,6 +36,7 @@
 
 #ignore my tests
 tests/
+Echo_Live_Typetool dev.cpp
 
 #ignore start.js
 start.js
@@ -43,5 +44,5 @@ start.js
 #ignore include
 include/
 nlohmann/
-vcpkg.json
+
 typetool_config_origin.json
