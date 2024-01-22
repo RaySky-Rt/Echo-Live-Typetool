@@ -8,20 +8,30 @@ using namespace std;
 
 void refreshConsole(); // 清屏
 void command_execute(string command); // 执行指令
-void read_config(); // 读取配置文件
-void write_config(); // 写入配置文件
-void show_commandlist(); // 输出指令列表
+void read_configs(); // 读取配置文件 (包含所有的用户配置)
+void write_config(json current_config); // 写入当前用户配置
+void switch_to_config(json current_config); // 切换用户配置
+void show_commandlist(); // 输出指令列表 (没写，但是占个位
 string getcommand(string a); // 解析指令
 
-//一些全局变量↓
+// 一些全局变量↓
 string username="",prefix="",suffix="",printSpeed="30";
-json config;
-
-
+string current_config_name="",default_config_name=""; // 当前用户配置的名称   默认用户配置的名称  (现在看来default_config_name似乎有点冗余了，在考虑要不要删掉
+json configs; // 完整的配置文件，其中包含所有的用户配置
+json current_config; // 当前用户配置
 int main() {
+
+    refreshConsole(); // 启动之后先清个屏 (
+
     string userInput;
 
-    read_config();
+    read_configs();
+
+    current_config_name=default_config_name;
+
+    current_config=configs[current_config_name]; // 读取当前的用户配置 (相当于从config里拷贝了用户配置的副本出来
+                                                
+    switch_to_config(current_config); // 切换到当前的用户配置(副本)
 
     ofstream file("../../start.js", ios::out);
     if (!file.is_open()) {
@@ -32,7 +42,7 @@ int main() {
     while (true) {
         userInput=""; // 清空userInput
 
-        cout << "请输入文本...？: ";
+        cout << '[' << current_config_name << ']' << "请输入文本...?: " ;
 
         getline(cin, userInput);
 
@@ -84,8 +94,8 @@ void command_execute(string userInput){
             username=input;
             cout<<"已将说话人名称改为"<<username<<endl;
         }
-        write_config();
-        read_config();
+        write_config(current_config);
+        read_configs();
         return;
     }else if(command=="clear"){
         refreshConsole();
@@ -106,8 +116,8 @@ void command_execute(string userInput){
                 cout<<"已将前引用符号改为"<<prefix<<endl;
             }
         }
-        write_config();
-        read_config();
+        write_config(current_config);
+        read_configs();
     }else if(command=="suffix"){
         string input;
         if(userInput.size()<=8){
@@ -124,8 +134,8 @@ void command_execute(string userInput){
                 cout<<"已将后引用符号改为"<<suffix<<endl;
             }
         }
-        write_config();
-        read_config();
+        write_config(current_config);
+        read_configs();
     }else if(command=="printspeed"){
         string input;
         if(userInput.size()<=12){
@@ -135,21 +145,38 @@ void command_execute(string userInput){
             printSpeed=input;
             cout<<"已将打印速度设置为"<<printSpeed<<endl;
         }
-        write_config();
-        read_config();
+        write_config(current_config);
+        read_configs();
     }else if(command=="readconfig"){
-        read_config();
-        cout<<"配置文件读取成功！"<<endl;
+        if(userInput.size()<=12){
+            read_configs();
+            cout<<"配置文件读取成功!"<<endl;
+        }else{
+            string input;
+            input=userInput.substr(12);
+            if (configs.contains(input) && configs[input].is_object()){ // 判断要切换到的用户配置名称是否存在
+                current_config_name=input;
+
+                current_config=configs[current_config_name];
+                switch_to_config(current_config);
+
+                cout<<"配置文件成功切换至 "<<current_config_name<<" !"<<endl;
+            }else{
+                cerr<<"未找到名为"<<input<<"的用户配置，请重试"<<endl;
+            }
+            
+        }
+        
         return;
     }else{
-        cout<<"无效指令，请重试！"<<endl;
+        cerr<<"无效指令，请重试!"<<endl;
         return;
     }
 
     return;
 }
 
-void read_config(){
+void read_configs(){
 
     ifstream configFile("typetool_config.json");
     if (!configFile.is_open()) {
@@ -157,37 +184,39 @@ void read_config(){
         return;
     }
     // 读取文件内容到 JSON 对象
-    configFile >> config;
-    // 关闭文件
-    configFile.close();
-    // 检查是否成功读取配置
-    if (config.empty()) {
-        cerr << "配置文件为空或格式错误\n";
-        return;
+    configFile >> configs;
+    
+    // 读取默认用户配置
+    if (configs["default_config"].type() == json::value_t::string) {
+        if(configs.contains(configs["default_config"]) && configs[configs["default_config"]].is_object()){
+            default_config_name = configs["default_config"];
+        }else{
+            cerr << "不存在名为" << configs["default_config"] << "的默认用户配置，请检查 typetool_config.json 中 default_config 一项是否有误并重启程序" << endl;
+        }
     }
 
-    if (config["username"].type() == json::value_t::string) {
-        username = config["username"];
-    }
-    if (config["prefix"].type() == json::value_t::string) {
-        prefix = config["prefix"];
-    }
-    if (config["suffix"].type() == json::value_t::string) {
-        suffix = config["suffix"];
-    }
-    if (config["printSpeed"].type() == json::value_t::string) {
-        printSpeed = config["printSpeed"];
+    // 关闭文件
+    configFile.close();
+
+    // 检查是否成功读取配置
+    if (configs.empty()) {
+        cerr << "配置文件为空或格式错误!\n";
+        return;
     }
 
     return;
 }
 
-void write_config(){
+void write_config(json current_config){ // 这个函数写的太屎山了，回头一定要改(
 
-    config["username"] = username;
-    config["prefix"] = prefix;
-    config["suffix"] = suffix;
-    config["printSpeed"] = printSpeed;
+    json& write=configs[current_config_name]; // write是对config中当前用户配置的引用，方便直接修改写入
+
+    current_config["username"] = username; // 先进行一遍读取
+    current_config["prefix"] = prefix;
+    current_config["suffix"] = suffix;
+    current_config["printSpeed"] = printSpeed;
+
+    write=current_config; // 相当于直接修改了config里对应的用户配置
 
     ofstream configFile("typetool_config.json");
 
@@ -196,10 +225,26 @@ void write_config(){
         return;
     }
 
-    configFile << setw(4) << config << endl;
+    configFile << setw(4) << configs << endl;
     configFile.close();
 
     return;
+}
+
+void switch_to_config(json current_config){
+
+    if (current_config["username"].type() == json::value_t::string) {
+        username = current_config["username"];
+    }
+    if (current_config["prefix"].type() == json::value_t::string) {
+        prefix = current_config["prefix"];
+    }
+    if (current_config["suffix"].type() == json::value_t::string) {
+        suffix = current_config["suffix"];
+    }
+    if (current_config["printSpeed"].type() == json::value_t::string) {
+        printSpeed = current_config["printSpeed"];
+    }
 }
 
 void show_commandlist(){
