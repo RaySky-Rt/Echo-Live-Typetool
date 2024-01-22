@@ -1,6 +1,15 @@
 {
-    "username": "",
-    "prefix": "",
-    "suffix": "",
-    "printSpeed": "30"
+    "default_config": "cfg1",
+    "cfg1": {
+        "username": "",
+        "prefix": "",
+        "suffix": "",
+        "printSpeed": "30"
+    },
+    "cfg2": {
+        "username": "",
+        "prefix": "",
+        "suffix": "",
+        "printSpeed": "30"
+    }
 }
