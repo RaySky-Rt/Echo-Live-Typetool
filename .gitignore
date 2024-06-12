@@ -37,6 +37,7 @@
 #ignore my tests
 tests/
 Echo_Live_Typetool dev.cpp
+launch_dev.bat
 
 #ignore start.js
 start.js
