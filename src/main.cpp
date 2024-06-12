@@ -39,19 +39,17 @@ int main() {
             }else{
                 command_execute(userInput);
             }
-        }else if(userInput[0]=='/'&&userInput[1]=='/'){ //如果输入是两个斜杠就转义为一个斜杠，不执行指令
-            userInput=userInput.substr(1);
         }else{
             output(userInput);
-            if(current_config["loop_mode"]=="true"){
-                printSpeed="10086";
-                do{
-                    userInput.push_back('_');
-                    this_thread::sleep_for(chrono::milliseconds(500));
-                    output(userInput);
-                    userInput.pop_back();
-                }while(getline(cin, userInput));
-            }
+            // if(current_config["loop_mode"]=="true"){
+            //     printSpeed="10086";
+            //     do{
+            //         userInput.push_back('_');
+            //         this_thread::sleep_for(chrono::milliseconds(500));
+            //         output(userInput);
+            //         userInput.pop_back();
+            //     }while(getline(cin, userInput));
+            // }
         }
     }
     
