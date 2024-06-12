@@ -13,17 +13,18 @@ int main() {
     current_config=configs[current_config_name]; // 读取当前的用户配置 (相当于从config里拷贝了用户配置的副本出来
     switch_to_config(current_config); // 切换到当前的用户配置(副本)
     
-    ifstream iFile("start.js");
+    ifstream iFile("../../start.js");
     
     if (!iFile.is_open()) {
         cerr << "无法打开start.js，请检查start.js是否被其他程序占用\n";
+        palse();
         return 1;
     }
     
-    // 检查文件是否为空
-    if (iFile.peek() == ifstream::traits_type::eof()) {
-        cerr << "文件 start.js 为空" << endl;
-    }
+    // // 检查文件是否为空 //似乎不需要
+    // if (iFile.peek() == ifstream::traits_type::eof()) {
+    //     cerr << "文件 start.js 为空" << endl;
+    // }
 
     while (true) {
         userInput=""; // 清空userInput

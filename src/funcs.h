@@ -12,6 +12,7 @@ using json = nlohmann::ordered_json;
 //functions
 
 void refreshConsole(); // 清屏
+void palse(); //暂停程序
 void initialize(); 
 void output(std::string userInput);
 void command_execute(std::string userInput); // 执行指令

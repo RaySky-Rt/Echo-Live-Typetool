@@ -7,6 +7,10 @@ void refreshConsole(){
     system("cls"); // 控制台清屏（仅限Windows平台）
 }
 
+void palse(){
+    std::cin.get();
+}
+
 void initialize(){
     refreshConsole(); // 启动之后先清个屏 (
     read_configs(); //读取一下配置文件
@@ -15,7 +19,7 @@ void initialize(){
 
 void output(std::string userInput){
 
-    std::ofstream oFile("start.js");
+    std::ofstream oFile("../../start.js");
 
     if(current_theme_name=="terminal_like"){ //terminal_like主题
 
@@ -124,7 +128,6 @@ void command_execute(std::string userInput){
     }else if(command=="readconfig"){
         if(userInput.size()<=12){
             read_configs();
-            std::cout<<"配置文件读取成功!"<<std::endl;
         }else{
             std::string input;
             input=userInput.substr(12);
@@ -161,7 +164,7 @@ void read_configs(){
     try{
         // 读取文件内容到 JSON 对象
         configFile >> configs;
-        std::cout << "配置文件读取成功" << std::endl;
+        std::cout << "配置文件读取成功！" << std::endl;
     }catch(const nlohmann::json::parse_error& e){
         std::cerr << "解析 typetool_config.json 时出错: " << e.what() << std::endl;
         return;
