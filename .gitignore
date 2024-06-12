@@ -35,15 +35,11 @@
 .vscode/
 
 #ignore my tests
+debug/
 tests/
-Echo_Live_Typetool dev.cpp
-launch_dev.bat
 
-#ignore start.js
-start.js
+#ignore my builds
+build/
 
-#ignore include
-include/
-nlohmann/
-
-typetool_config_origin.json
+#ignore backups
+backups/
