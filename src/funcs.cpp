@@ -58,6 +58,11 @@ void output(std::string userInput){
 }
 
 void command_execute(std::string userInput){
+    if(userInput[0]=='/'&&userInput[1]=='/'){
+        userInput=userInput.substr(1);
+        output(userInput);
+        return;
+    }
     std::string command;
     command=getcommand(userInput);
     
@@ -260,7 +265,7 @@ void prefill(){
     return;
 }
 
-std::string gettheme(){ //读取主题配置
+std::string gettheme(){
     return current_config["theme"];
 }
 

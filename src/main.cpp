@@ -36,11 +36,11 @@ int main() {
         if(userInput[0]=='/'){// 指令
             if(userInput=="/exit"){
                 break;
-            }else if(userInput[0]=='/'&&userInput[1]=='/'){ //如果输入是两个斜杠就转义为一个斜杠，不执行指令
-                userInput=userInput.substr(1);
             }else{
                 command_execute(userInput);
             }
+        }else if(userInput[0]=='/'&&userInput[1]=='/'){ //如果输入是两个斜杠就转义为一个斜杠，不执行指令
+            userInput=userInput.substr(1);
         }else{
             output(userInput);
             if(current_config["loop_mode"]=="true"){

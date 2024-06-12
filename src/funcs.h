@@ -11,17 +11,17 @@ using json = nlohmann::ordered_json;
 
 //functions
 
-void refreshConsole(); // 清屏
+void refreshConsole(); // 清屏（目前仅Windows
 void palse(); //暂停程序
-void initialize(); 
-void output(std::string userInput);
+void initialize(); //初始化
+void output(std::string userInput); // 这个函数用于将json start中的数据写入start.json
 void command_execute(std::string userInput); // 执行指令
 void read_configs(); // 读取配置文件 (包含所有的用户配置)
 void write_config(json current_config); // 写入当前用户配置
 void switch_to_config(json current_config); // 切换用户配置
 void show_commandlist(); // 输出指令列表 (没写，但是占个位
-void prefill(); // 表单预填充 (没写，但是占个位
-std::string gettheme(); 
+void prefill(); // 预填充start 防止意外
+std::string gettheme(); //读取主题配置（没写完但是占个位
 std::string getcommand(std::string a); // 解析指令
 
 
