@@ -1,20 +1,15 @@
 #include <iostream>
-#include <fstream>
-#include <conio.h>
-#include <thread>
-#include <chrono>
-#include <nlohmann/json.hpp>
 #include "funcs.h"
+#include <nlohmann/json.hpp>
 
 using json = nlohmann::ordered_json;
 using namespace std;
 
 int main() {
 
-    refreshConsole(); // 启动之后先清个屏 (
-    read_configs(); //读取一下配置文件
+    initialize();
 
-    current_config_name=default_config_name;
+    current_config_name=default_config_name; // 获取默认配置的名称
     current_config=configs[current_config_name]; // 读取当前的用户配置 (相当于从config里拷贝了用户配置的副本出来
     switch_to_config(current_config); // 切换到当前的用户配置(副本)
     
@@ -24,8 +19,11 @@ int main() {
         cerr << "无法打开start.js，请检查start.js是否被其他程序占用\n";
         return 1;
     }
-
-    iFile >> start;
+    
+    // 检查文件是否为空
+    if (iFile.peek() == ifstream::traits_type::eof()) {
+        cerr << "文件 start.js 为空" << endl;
+    }
 
     while (true) {
         userInput=""; // 清空userInput

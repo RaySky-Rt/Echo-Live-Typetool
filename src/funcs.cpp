@@ -1,50 +1,56 @@
-#include <iostream>
-#include <fstream>
-#include <conio.h>
-#include <thread>
-#include <chrono>
-#include <nlohmann/json.hpp>
 #include "funcs.h"
-using json = nlohmann::ordered_json;
 
 std::string userInput;
-std::string username="",prefix="",suffix="",printSpeed="30",current_config_name="",default_config_name="";
+std::string username="",prefix="",suffix="",printSpeed="30",current_theme_name="",default_theme_name="",loop_mode="",current_config_name="",default_config_name="";
 json configs,start,current_config; 
-
 void refreshConsole(){
     system("cls"); // 控制台清屏（仅限Windows平台）
 }
 
 void initialize(){
-    
+    refreshConsole(); // 启动之后先清个屏 (
+    read_configs(); //读取一下配置文件
+    prefill(); //预填充以下start里的文本
 }
 
 void output(std::string userInput){
+
     std::ofstream oFile("start.js");
 
-    if(current_theme()=="terminal_like"){ //terminal_like主题
+    if(current_theme_name=="terminal_like"){ //terminal_like主题
+
         start["username"]=username;
         start["message"]=prefix+userInput+suffix;
         start["printSpeed"]=printSpeed;
         start["message"]=userInput;
-        current_config["loop_mode"]=="true";
 
-        oFile << "const data = " << start.dump(4) << ";" << std::endl;
+        oFile << "echolive.send(" << start.dump(4) << ");" << std::endl;
+        if(!oFile){
+            std::cerr<<"无法打开start.js，请检查文件是否被占用或者文件路径是否正确";
+        }else{
+            std::cout << "文本消息发送成功！\n";
+        }
 
-        std::cout << "文本消息发送成功！\n";
     }else{ //默认主题
+
         start["username"]=username;
-        start["message"]=prefix+userInput+suffix;
         start["printSpeed"]=printSpeed;
-        start["message"]=userInput;
-        current_config["loop_mode"]=="false";
+        start["messages"][0]["message"]=prefix+userInput+suffix;
 
-        oFile << "const data = " << start.dump(4) << ";" << std::endl;
+        oFile << "echolive.send(" << start.dump(4) << ");" << std::endl;
+        if(!oFile){
+            std::cerr<<"无法打开start.js，请检查文件是否被占用或者文件路径是否正确";
+        }else{
+            std::cout << "文本消息发送成功！\n";
+        }
 
-        std::cout << "文本消息发送成功！\n";
     }
 
     oFile.close();
+    if(oFile.fail()){
+        std::cerr<<"关闭start.js失败";
+    }
+
 }
 
 void command_execute(std::string userInput){
@@ -151,8 +157,15 @@ void read_configs(){
         std::cerr << "无法打开配置文件 typetool_config.json\n";
         return;
     }
-    // 读取文件内容到 JSON 对象
-    configFile >> configs;
+
+    try{
+        // 读取文件内容到 JSON 对象
+        configFile >> configs;
+        std::cout << "配置文件读取成功" << std::endl;
+    }catch(const nlohmann::json::parse_error& e){
+        std::cerr << "解析 typetool_config.json 时出错: " << e.what() << std::endl;
+        return;
+    }
     
     // 读取默认用户配置
     if (configs["default_config"].type() == json::value_t::string) {
@@ -183,6 +196,7 @@ void write_config(json current_config){ // 这个函数写的太屎山了，回�
     current_config["prefix"] = prefix;
     current_config["suffix"] = suffix;
     current_config["printSpeed"] = printSpeed;
+    current_config["theme"] = current_theme_name;
 
     write=current_config; // 相当于直接修改了config里对应的用户配置
 
@@ -213,13 +227,37 @@ void switch_to_config(json current_config){
     if (current_config["printSpeed"].type() == json::value_t::string) {
         printSpeed = current_config["printSpeed"];
     }
+    if (current_config["theme"].type() == json::value_t::string) {
+        current_theme_name = current_config["theme"];
+    }
+    if (current_config["loop_mode"].type() == json::value_t::string) {
+        current_theme_name = current_config["loop_mode"];
+    }
+
+    return;
 }
 
 void show_commandlist(){
     // 还没写，这个函数真的用得上吗（
+    return;
 }
 
-std::string current_theme(){ //读取主题配置
+void prefill(){
+    start={
+        {"username", "讲话人"},
+        {"messages", {
+            {
+                {"message", "这是一条消息"},
+                {"data", {
+                    {"printSpeed", "30"}
+                }}
+            }
+        }}
+    };
+    return;
+}
+
+std::string gettheme(){ //读取主题配置
     return current_config["theme"];
 }
 
