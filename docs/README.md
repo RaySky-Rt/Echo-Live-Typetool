@@ -35,7 +35,7 @@ Echo-Live-Typetool是一个使用C++编写的控制台程序，你可以在此�
 
     你可以编辑 `typetool_config.json` 中的配置来调整你想要的输出效果，建议使用VSCode等专业文本编辑器
 
-    关于配置文件的详细说明请移步 [配置说明](https://github.com/RaySky-Rt/Echo-Live-Typetool/blob/master/CONFIG_DOCS.md)
+    关于配置文件的详细说明请移步 [配置说明](https://github.com/RaySky-Rt/Echo-Live-Typetool/blob/master/docs/CONFIG_DOCS.md)
 
 - ### 最后就是...运行程序！
     #### 方法一：使用launch.bat启动（推荐）
@@ -71,17 +71,19 @@ Echo-Live-Typetool是一个使用C++编写的控制台程序，你可以在此�
 
 ~~有点类似mc的指令~~
 
-详细信息请参见 [指令列表](https://github.com/RaySky-Rt/Echo-Live-Typetool/blob/master/COMMANDS.md)
+详细信息请参见 [指令列表](https://github.com/RaySky-Rt/Echo-Live-Typetool/blob/master/docs/COMMANDS.md)
 
-### **3.** 富文本输入
+### **3.** 富文本输入 / 图片
 
-Echo-Live-Typetool现在只支持纯文本，暂不支持富文本输入
+当前版本的Echo-Live-Typetool支持您纯手敲富文本并正常显示输出，尽管大概没人会这么干（
+
+目前暂未支持Echo-Live的图片/表情包发送功能
 
 ## 有其他问题或者建议？
 
 请先在已有的issue中查找，看看能否找到解决方法
 
-如果没有，请创建一个新Issue，作为一位在校大学新牲我会及时查看并协助你解决问题，或者采纳建议（
+如果没有，请创建一个新Issue，我会及时查看并协助你解决问题，或者采纳建议（
 
 ( P.S. Issue模板施工中... ... )
 
