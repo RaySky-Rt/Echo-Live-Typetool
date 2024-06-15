@@ -7,6 +7,13 @@
 #include <thread>
 #include <chrono>
 #include <nlohmann/json.hpp>
+
+#ifdef _WIN32
+    #include "curses.h" // pdcurses 头文件
+#else
+    #include <ncurses.h> // ncurses 头文件
+#endif
+
 using json = nlohmann::ordered_json;
 
 //functions
@@ -15,6 +22,7 @@ void refreshConsole(); // 清屏（目前仅Windows
 void palse(); //暂停程序
 void initialize(); //初始化
 void output(std::string userInput); // 这个函数用于将json start中的数据写入start.json
+void output(std::string userInput, std::string mode); //有模式切换功能的output
 void command_execute(std::string userInput); // 执行指令
 void read_configs(); // 读取配置文件 (包含所有的用户配置)
 void write_config(json current_config); // 写入当前用户配置
@@ -24,6 +32,8 @@ void prefill(); // 预填充start 防止意外
 std::string gettheme(); //读取主题配置（没写完但是占个位
 std::string getcommand(std::string a); // 解析指令
 
+std::string autoComplete(const std::string& input);
+void delete_char();
 
 //global variables
 
@@ -33,5 +43,8 @@ extern std::string username, prefix, suffix, printSpeed, current_theme_name, def
 //configs:完整的配置文件，其中包含所有的用户配置 | current_config:当前用户配置
 extern json configs, start, current_config;
 
+// 简单的命令列表用于自动补全
+extern std::vector<std::string> commands;
+extern wchar_t userchar;
 
 #endif // FUNCS_H

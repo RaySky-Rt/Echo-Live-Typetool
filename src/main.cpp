@@ -1,12 +1,13 @@
 #include <iostream>
 #include "funcs.h"
 #include <nlohmann/json.hpp>
+#include <locale.h>
 
 using json = nlohmann::ordered_json;
 using namespace std;
 
 int main() {
-
+    setlocale(LC_ALL, "");
     initialize();
 
     current_config_name=default_config_name; // 获取默认配置的名称
@@ -25,34 +26,62 @@ int main() {
     // if (iFile.peek() == ifstream::traits_type::eof()) {
     //     cerr << "文件 start.js 为空" << endl;
     // }
+    printw("[%s]\n", current_config_name.c_str());
+    int cursor_pos = 0; // 初始化光标位置
 
-    while (true) {
-        userInput=""; // 清空userInput
+    while((userchar = getch()) != 27) { // Esc键退出
 
-        cout << '[' << current_config_name << ']' << "请输入文本...?: " ;
-
-        getline(cin, userInput);
-
-        if(userInput[0]=='/'){// 指令
-            if(userInput=="/exit"){
-                break;
-            }else{
+        if(!userInput.empty() && userInput[0] == '/' && userchar == '\t'){// 当识别到指令的时候按下Tab键触发自动补全
+            string completed = autoComplete(getcommand(userInput));
+            userInput += completed;
+            cursor_pos = userInput.length();
+            move(getcury(stdscr), 0);
+            clrtoeol();
+            printw("%s", userInput.c_str());
+        }else if(userchar == '\n'){
+            if(!userInput.empty() && userInput[0] == '/'){
                 command_execute(userInput);
+                userInput="";
+            }else if(!userInput.empty()){
+                output(userInput);
+                userInput="";
+            }
+            cursor_pos = 0;
+            move(getcury(stdscr), 0);
+            clrtoeol();
+        }else if(userchar == '\b' || userchar == KEY_BACKSPACE || userchar == 127){
+            if (cursor_pos > 0) {
+                userInput.erase(cursor_pos - 1, 1);
+                cursor_pos--;
+                move(getcury(stdscr), 0);
+                clrtoeol();
+                printw("%s", userInput.c_str());
+                move(getcury(stdscr), cursor_pos);
+            }
+        }else if(userchar == KEY_LEFT){
+            if (cursor_pos > 0) {
+                cursor_pos--;
+                move(getcury(stdscr), cursor_pos);
+            }
+        }else if(userchar == KEY_RIGHT){
+            if (cursor_pos < userInput.length()) {
+                cursor_pos++;
+                move(getcury(stdscr), cursor_pos);
             }
         }else{
-            output(userInput);
-            // if(current_config["loop_mode"]=="true"){
-            //     printSpeed="10086";
-            //     do{
-            //         userInput.push_back('_');
-            //         this_thread::sleep_for(chrono::milliseconds(500));
-            //         output(userInput);
-            //         userInput.pop_back();
-            //     }while(getline(cin, userInput));
-            // }
+            userInput.insert(cursor_pos, 1, static_cast<char>(userchar));
+            cursor_pos++;
+            move(getcury(stdscr), 0);
+            clrtoeol();
+            printw("%s", userInput.c_str());
+            move(getcury(stdscr), cursor_pos);
         }
+        refresh();  // 刷新屏幕显示
+
     }
-    
+
+    endwin();  // 结束pdcurses屏幕
+
     iFile.close();
     return 0;
 }

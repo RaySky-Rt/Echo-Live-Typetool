@@ -3,6 +3,9 @@
 std::string userInput;
 std::string username="",prefix="",suffix="",printSpeed="30",current_theme_name="",default_theme_name="",loop_mode="",current_config_name="",default_config_name="";
 json configs,start,current_config; 
+// 简单的命令列表用于自动补全
+std::vector<std::string> commands = {"name", "clear", "prefix", "suffix", "exit", "readconfig", "writeconfig", "printspeed"};
+wchar_t userchar;
 void refreshConsole(){
     system("cls"); // 控制台清屏（仅限Windows平台）
 }
@@ -12,9 +15,13 @@ void palse(){
 }
 
 void initialize(){
+    initscr();  // 初始化 pdcurses 屏幕
+    cbreak();   // 禁用行缓冲（每次输入都立即可用）
+    keypad(stdscr, TRUE); // 启用键盘输入
+    noecho();   // 禁用回显（输入字符不直接显示在屏幕上）
     refreshConsole(); // 启动之后先清个屏 (
-    read_configs(); //读取一下配置文件
-    prefill(); //预填充以下start里的文本
+    read_configs(); // 读取一下配置文件
+    prefill(); // 预填充一下start里的文本
 }
 
 void output(std::string userInput){
@@ -32,7 +39,8 @@ void output(std::string userInput){
         if(!oFile){
             std::cerr<<"无法打开start.js，请检查文件是否被占用或者文件路径是否正确";
         }else{
-            std::cout << "文本消息发送成功！\n";
+            // std::cout << "文本消息发送成功！\n";
+            printw("\n文本消息发送成功！\n");
         }
 
     }else{ //默认主题
@@ -45,7 +53,8 @@ void output(std::string userInput){
         if(!oFile){
             std::cerr<<"无法打开start.js，请检查文件是否被占用或者文件路径是否正确";
         }else{
-            std::cout << "文本消息发送成功！\n";
+            // std::cout << "文本消息发送成功！\n";
+            printw("\n文本消息发送成功！\n");
         }
 
     }
@@ -284,3 +293,27 @@ std::string getcommand(std::string userInput){
     return command;
 }
 
+std::string autoComplete(const std::string& input) {
+    if (input.empty()) {
+        return "";  // 如果输入为空，不做补全
+    }
+
+    // 查找匹配的命令
+    for (const auto& cmd : commands) {
+        if (cmd.find(input) == 0) {
+            return cmd.substr(input.size());  // 返回补全的部分
+        }
+    }
+
+    return "";  // 没有找到匹配的补全项
+}
+
+void delete_char() {
+    int y, x;
+    // getyx(stdscr, y, x);  // 获取当前光标位置
+    if (x > 0) {
+        move(getcury(stdscr), getcurx(stdscr) - 1);
+        delch();  // 删除当前字符
+        refresh();  // 刷新屏幕显示
+    }
+}
