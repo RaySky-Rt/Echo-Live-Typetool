@@ -46,3 +46,6 @@ backups/
 
 #others
 start.js
+
+#libs
+/libs
